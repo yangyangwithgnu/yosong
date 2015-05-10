@@ -28,8 +28,10 @@ http://yangyangwithgnu.github.io/
 
 ##演示
 
-XX
-
+<div align="center">
+<img src="https://github.com/yangyangwithgnu/yosong/blob/master/pics/%E6%BC%94%E7%A4%BA.gif" alt=""/><br />
+（音频属性中提取真实文件名）
+</div>
 
 ##背景
 
