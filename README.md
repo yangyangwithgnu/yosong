@@ -1,4 +1,4 @@
-#音乐消除国界、下载废除权限：百度音乐解析器 yosong
+#音乐消除国界、下载废除权限：音乐解析器 yosong
 yangyangwithgnu@yeah.net  
 http://yangyangwithgnu.github.io/  
 2015-05-10 20:43:16
