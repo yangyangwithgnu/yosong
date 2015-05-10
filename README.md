@@ -182,7 +182,7 @@ bool Song::download (const string& path, const string& quality, const unsigned t
 **Q11**：非正常退出 yosong 有无危害？  
 **A11**：yosong 通过某些机制绕开百度限制，其中涉及把歌曲加入收藏，收藏夹有收藏歌曲数量的限制（8K），虽然 yosong 会自动清理由它加入收藏的歌曲，但，当非正常退出时，清理这步可能未执行，所以，建议定期到 http://yinyueyun.baidu.com/ 手工清理收藏夹，否则，yosong 无法正常运行。  
 
-##接下来你的可以
+##接下来你可以
 
 yosong 不是终点，而是你的起点，基于它你可以：
 0）调用 Song::download() 集成 aria2c 下载工具；
