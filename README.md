@@ -1,7 +1,7 @@
 #音乐消除国界、下载废除权限：百度音乐解析器 yosong
 yangyangwithgnu@yeah.net  
 http://yangyangwithgnu.github.io/  
-2015-05-10 22:23:16
+2015-05-10 20:43:16
 
 
 ##谢谢
@@ -16,7 +16,7 @@ http://yangyangwithgnu.github.io/
 
 ##公告
 
-**讨论**：任何意见建议移步 XXXXXXX  
+**讨论**：任何意见建议移步 http://v2ex.com/t/190006  
 
 **声明**：歌曲有版权，使用需谨慎。
 
