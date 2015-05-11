@@ -184,10 +184,10 @@ bool Song::download (const string& path, const string& quality, const unsigned t
 
 ##接下来你可以
 
-yosong 不是终点，而是你的起点，基于它你可以：
-0）调用 Song::download() 集成 aria2c 下载工具；
-1）创建 GUI 版本，为害怕 CLI 的亲们带去曙光；
-2）创建网站版本，yosong 在幕后，提供歌曲下载地址解析，类似硕鼠网；
+yosong 不是终点，而是你的起点，基于它你可以：  
+0）调用 Song::download() 集成 aria2c 下载工具；  
+1）创建 GUI 版本，为害怕 CLI 的亲们带去曙光；  
+2）创建网站版本，yosong 在幕后，提供歌曲下载地址解析，类似硕鼠网；  
 3）移植 windows 版本。
 
 ##最后一定是最不重要的
