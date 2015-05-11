@@ -131,7 +131,7 @@ yosong --user 'yangyangwithgnu' --password 'abcd1234' --artist '伍佰'
 默认值，6。  
 
 **--path**  
-指定歌曲最终下载地址保存路径，文件命名规则：artistname@hhmmss.txt。  
+指定歌曲最终下载地址保存路径，文件命名规则：artistname\@hhmmss.txt。  
 必填。  
 单参数。  
 默认值，~/  
@@ -154,7 +154,7 @@ bool Song::download (const string& path, const string& quality, const unsigned t
 **Q3**：为何有类似“咖哩鱼蛋(1.1MB too small)”红色报错信息？  
 **A3**：有些歌曲尺寸太小相应音质就不高，对于您这样有品味的人，宁可不下载也不要被这些低质声音污染耳朵，所以，你可以通过该选项指定一个以 MB 为单位的尺寸下限，告诉 yosong 忽略小于该尺寸的歌曲。如果你是个接受度很广的人，可以将 --ignore-size-lower 设置为 0。  
 
-**Q4**：为何不把默认品质是 320 而不是无损的 flac？  
+**Q4**：为何默认品质是 320 而不是无损的 flac？  
 **A4**：尼玛，劳资的车载音响不支持 flac 格式 (ง •̀_•́)ง  
 
 **Q5**：为何迅雷下载回来的歌曲出现类似 96892368400320.mp3 这样的文件名？  
