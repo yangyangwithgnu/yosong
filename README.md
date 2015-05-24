@@ -1,7 +1,7 @@
 <h1 align="center">音乐消除国界，下载废除权限：歌曲地址解析器 yosong</h1>
 yangyangwithgnu@yeah.net  
 http://yangyangwithgnu.github.io/  
-2015-05-21 22:13:16
+2015-05-24 22:29:16
 
 
 ##谢谢
