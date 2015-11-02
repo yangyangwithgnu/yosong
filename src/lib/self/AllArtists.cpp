@@ -28,7 +28,7 @@ parseArtistsId (unordered_map<string, string>& artist_id_map)
 
     // 只保留含歌手 ID 列表的关键部分，剔除其他冗余信息
     static const string first_artist(R"(<a href="/artist/4840" title="A Fine Frenzy" >A Fine Frenzy</a>)");
-    static const string last_artist(R"(<a href="/artist/69365465" title="阚立文" >阚立文</a>)");
+    static const string last_artist(R"(<a href="/artist/88035043" title="馨予" >馨予</a>)");
     pair<string, size_t> pair_tmp = fetchStringBetweenKeywords(artists_webpage_txt, first_artist, last_artist);
     if (0 == pair_tmp.second) {
         cerr << "ERROR! fail to find " << first_artist << " and " << last_artist << endl;

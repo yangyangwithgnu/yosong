@@ -53,10 +53,8 @@ flags = [
     'c++', 
     '-I', 
     '.', 
-    '-I', 
+    'isystem', 
     '/usr/include/', 
-    '-I', 
-    '/usr/include/c++/4.8/'
 ]
 
 

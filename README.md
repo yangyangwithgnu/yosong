@@ -1,7 +1,7 @@
 <h1 align="center">音乐消除国界，下载废除权限：歌曲地址解析器 yosong</h1>
 yangyangwithgnu@yeah.net  
 http://yangyangwithgnu.github.io/  
-2015-05-24 22:29:16
+2015-11-02 14:55:11
 
 
 ##谢谢
@@ -23,6 +23,7 @@ http://yangyangwithgnu.github.io/
 
 ##版本
 
+**[v0.1.3，修正，2015-11-02]**：上一版本 yosong 通过设置 user agent 将自己伪装成 iphone 进行访问，近期 baidu 加强 user agent 校验，导致出现 302 页面错误。取消伪装反而不会出问题。  
 **[v0.1.2，修正，2015-05-21]**：专辑列表关键字调整 (￣□￣)。  
 **[v0.1.1，修正，2015-05-21]**：专辑列表关键字调整。  
 **[v0.1.0，新增，2015-05-10]**：发布初始版本。  

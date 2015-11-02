@@ -17,8 +17,8 @@ using std::make_pair;
 
 Pass::Pass (const string& username, const string& password)
 {
-    // 既然是访问 wap，那就应该伪装成手机
-    static const string user_agent("Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16");
+    // 不用可以设置 UA 伪装成手机，否则会导致页面 302 错误
+    static const string user_agent("");
 
     // 获取 BAIDUID 的 cookie 项
     // >>>>>>>>>>>>>>>>>>>>>>>>>
@@ -27,7 +27,7 @@ Pass::Pass (const string& username, const string& password)
     Webpage baidu_webpage( baidu_wap_url,
                            "",
                            "",
-                           16,
+                           4,
                            2,
                            2,
                            user_agent );
