@@ -26,7 +26,7 @@ using namespace std;
 static mutex g_mtx;
 
 static const string g_softname(RichTxt::bold_on + "yosong" + RichTxt::bold_off);
-static const string g_version("0.1.3");
+static const string g_version("0.1.4");
 static const string g_myemail("yangyangwithgnu@yeah.net");
 static const string g_myemail_color(RichTxt::bold_on + RichTxt::foreground_green + g_myemail + RichTxt::reset_all);
 static const string g_mywebspace("http://yangyangwithgnu.github.io");
@@ -179,8 +179,54 @@ parseSongInfo ( const string& bduss,
                 const string& ignore_size_lower,
                 vector<FinalInfo>& final_info_list )
 {
-    Song song(bduss, artist_name, album_name, song_name, song_id, quality);
-    if (!song.isInitOk()) {
+    // baidu 对高频访问敏感，有两种方式应对：一是改为串行解析歌曲下载地址，一是
+    // 并行解析但针对失败的请求进行重试。综合考虑效率，采用方式二。 
+    const unsigned retry_times = 4, sleep_time = 1;
+
+    bool find_quality = false;
+    for (unsigned i = 0; i < retry_times; ++i) {
+        Song song(bduss, artist_name, album_name, song_name, song_id, quality);
+        if (!song.isInitOk()) {
+            sleep(sleep_time);
+            continue;
+        }
+        
+        // 歌曲尺寸小于用户指定的则忽略之
+        string rate, size, format;
+        if (!song.getFinalRateAndFormatAndSize(rate, size, format)) {
+            g_mtx.lock();
+            cerr << RichTxt::underline_on << RichTxt::foreground_red
+                 << song_name
+                 << RichTxt::reset_all
+                 << "(no this quality) " << flush;
+            g_mtx.unlock();
+            return;
+        }
+        long double ignore_size_lower_num = strtold(ignore_size_lower.c_str(), nullptr);
+        long double size_num = strtold(size.c_str(), nullptr);
+        if (size_num < ignore_size_lower_num * 1024 * 1024) { // 歌曲实际尺寸单位为 byte，用户指定的最小歌曲尺寸单位为 MB
+            g_mtx.lock();
+            cerr << RichTxt::underline_on << RichTxt::foreground_red
+                 << song_name
+                 << RichTxt::reset_all
+                 << setprecision(1) << setiosflags(ios::fixed)
+                 << "(" << size_num / 1024 / 1024 << "MB too small) " << flush
+                 << resetiosflags(ios::fixed);
+            g_mtx.unlock();
+            return;
+        }
+        
+        // 显示并保存有效歌曲最终下载地址及其他信息
+        g_mtx.lock();
+        cout << RichTxt::underline_on << song_name << RichTxt::underline_off << " " << flush;
+        final_info_list.push_back(FinalInfo{album_name, song_name, song.getFinalDownloadUrl()});
+        g_mtx.unlock();
+        
+        find_quality = true;
+        break;
+    }
+
+    if (!find_quality) {
         g_mtx.lock();
         cerr << RichTxt::underline_on << RichTxt::foreground_red
              << song_name
@@ -189,37 +235,6 @@ parseSongInfo ( const string& bduss,
         g_mtx.unlock();
         return;
     }
-
-    // 歌曲尺寸小于用户指定的则忽略之
-    string rate, size, format;
-    if (!song.getFinalRateAndFormatAndSize(rate, size, format)) {
-        g_mtx.lock();
-        cerr << RichTxt::underline_on << RichTxt::foreground_red
-             << song_name
-             << RichTxt::reset_all
-             << "(no this quality) " << flush;
-        g_mtx.unlock();
-        return;
-    }
-    long double ignore_size_lower_num = strtold(ignore_size_lower.c_str(), nullptr);
-    long double size_num = strtold(size.c_str(), nullptr);
-    if (size_num < ignore_size_lower_num * 1024 * 1024) { // 歌曲实际尺寸单位为 byte，用户指定的最小歌曲尺寸单位为 MB
-        g_mtx.lock();
-        cerr << RichTxt::underline_on << RichTxt::foreground_red
-             << song_name
-             << RichTxt::reset_all
-             << setprecision(1) << setiosflags(ios::fixed)
-             << "(" << size_num / 1024 / 1024 << "MB too small) " << flush
-             << resetiosflags(ios::fixed);
-        g_mtx.unlock();
-        return;
-    }
-
-    // 显示并保存有效歌曲最终下载地址及其他信息
-    g_mtx.lock();
-    cout << RichTxt::underline_on << song_name << RichTxt::underline_off << " " << flush;
-    final_info_list.push_back(FinalInfo{album_name, song_name, song.getFinalDownloadUrl()});
-    g_mtx.unlock();
 }
 
 int
