@@ -8,8 +8,6 @@
 #include <cstdlib>
 
 
-
-
 using std::istringstream;
 using std::cerr;
 using std::endl;
