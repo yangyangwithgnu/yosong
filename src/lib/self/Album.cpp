@@ -8,6 +8,9 @@
 #include <cstdlib>
 
 
+#include <unistd.h>
+
+
 using std::istringstream;
 using std::cerr;
 using std::endl;
@@ -47,18 +50,12 @@ parseSongsId ( const string& album_url,
         song_id_pos = song_id_pair.second;
         
         // 提取歌曲名
-        static const string song_name_keyword(R"(<span class="song-title)");
-        const size_t pos = webpage_txt.find(song_name_keyword, song_id_pos);
-        if (string::npos == pos) {
-            cerr << "ERROR! there is no " << song_name_keyword << endl;
-            exit(EXIT_FAILURE);
-        }
-        static const string song_name_begin_keyword(R"(title=")");
-        static const string song_name_end_keyword(R"(")");
+        static const string song_name_begin_keyword(R"(data-film="null">)");
+        static const string song_name_end_keyword(R"(</a>)");
         pair<string, size_t> song_name_pair = fetchStringBetweenKeywords( webpage_txt,
                                                                           song_name_begin_keyword,
                                                                           song_name_end_keyword,
-                                                                          pos );
+                                                                          song_id_pos );
         if (song_name_pair.first.empty()) {
             //cerr << "ERROR! there is no song name. " << endl;
             //return(false);

@@ -9,6 +9,7 @@
 #include <cstdlib>
 
 
+
 using std::istringstream;
 using std::cerr;
 using std::endl;
@@ -53,15 +54,27 @@ parseAlbumsId ( const string& artist_id,
         // 对 unicode 转义 
         const string albums_list_info = convertUnicodeTxtToUtf8(albums_list_webpage.getTxt());
         
-        // 在转义结果中搜索类似 <h4><a title=\"生命的现场\" href=\"\/album\/32144906\">，
-        // 获取专辑名和专辑 ID
+        // 在从转义结果中搜索类似 \" href=\"\/album\/5687689\">忘不了的(限量珍藏版)<，
+        // 获取专辑 ID 和专辑名
         // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         
         size_t album_name_pos = 0;
         size_t album_id_pos = 0;
         while (true) {
-            static const string album_name_begin_keyword(R"(<h4><a title=\")");
-            static const string album_name_end_keyword(R"(\")");
+            static const string album_id_begin_keyword(R"(\" href=\"\/album\/)");
+            static const string album_id_end_keyword(R"(\")");
+            pair<string, size_t> album_id_pair = fetchStringBetweenKeywords( albums_list_info,
+                                                                             album_id_begin_keyword,
+                                                                             album_id_end_keyword,
+                                                                             album_name_pos );
+            if (album_id_pair.first.empty()) {
+                break;
+            }
+            const string album_id = album_id_pair.first;
+            album_id_pos = album_id_pair.second;
+            
+            static const string album_name_begin_keyword(R"(>)");
+            static const string album_name_end_keyword(R"(<)");
             pair<string, size_t> album_name_pair = fetchStringBetweenKeywords( albums_list_info,
                                                                                album_name_begin_keyword,
                                                                                album_name_end_keyword,
@@ -74,18 +87,6 @@ parseAlbumsId ( const string& artist_id,
                 e = (char)tolower(e);
             }
             album_name_pos = album_name_pair.second;
-            
-            static const string album_id_begin_keyword(R"(href=\"\/album\/)");
-            static const string album_id_end_keyword(R"(\")");
-            pair<string, size_t> album_id_pair = fetchStringBetweenKeywords( albums_list_info,
-                                                                             album_id_begin_keyword,
-                                                                             album_id_end_keyword,
-                                                                             album_name_pos );
-            if (album_id_pair.first.empty()) {
-                break;
-            }
-            const string album_id = album_id_pair.first;
-            album_id_pos = album_id_pair.second;
             
             album_id_map[album_name] = album_id;
         }
