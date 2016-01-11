@@ -26,7 +26,7 @@ using namespace std;
 static mutex g_mtx;
 
 static const string g_softname(RichTxt::bold_on + "yosong" + RichTxt::bold_off);
-static const string g_version("0.1.5");
+static const string g_version("0.1.6");
 static const string g_myemail("yangyangwithgnu@yeah.net");
 static const string g_myemail_color(RichTxt::bold_on + RichTxt::foreground_green + g_myemail + RichTxt::reset_all);
 static const string g_mywebspace("http://yangyangwithgnu.github.io");

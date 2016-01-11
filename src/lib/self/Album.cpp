@@ -54,9 +54,15 @@ parseSongsId ( const string& album_url,
                                                                           song_name_end_keyword,
                                                                           song_id_pos );
         if (song_name_pair.first.empty()) {
-            //cerr << "ERROR! there is no song name. " << endl;
-            //return(false);
-            ;
+            static const string song_name_begin_keyword2(R"(&quot;}">)");
+            pair<string, size_t> song_name_pair2 = fetchStringBetweenKeywords( webpage_txt,
+                                                                               song_name_begin_keyword2,
+                                                                               song_name_end_keyword,
+                                                                               song_id_pos );
+            if (song_name_pair2.first.empty()) {
+                break;
+            }
+            song_name_pair = song_name_pair2;
         }
         song_name_pos = song_name_pair.second;
         string song_name = song_name_pair.first;

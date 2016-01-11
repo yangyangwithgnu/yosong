@@ -1,7 +1,7 @@
 <h1 align="center">音乐消除国界，下载废除权限：歌曲地址解析器 yosong</h1>
 yangyangwithgnu@yeah.net  
 http://yangyangwithgnu.github.io/  
-2016-01-09 10:38:01
+2016-01-11 14:18:21
 
 
 ##谢谢
@@ -23,6 +23,7 @@ http://yangyangwithgnu.github.io/
 
 ##版本
 
+**[v0.1.6，修正，2016-01-11]**：修正歌曲解析 bug。  
 **[v0.1.5，修正，2016-01-09]**：baidu 调整专辑页面、歌曲页面关键字，yosong 相应调整。  
 **[v0.1.4，修正，2015-11-22]**：baidu 对高频访问敏感，有两种方式应对：一是改为串行解析歌曲下载地址，一是并行解析但针对失败的请求进行重试。综合考虑效率，采用方式二。  
 **[v0.1.3，修正，2015-11-02]**：baidu 加强了访问终端类型与 IP 的关联分析，如果是移动设备发起的访问，那么源 IP 必须为 cmwap 或者 cmnet，如果是非移动设备发起，那么 IP 为 internet。具体而言，上一版本 yosong 通过设置 user agent 将自己伪装成 iphone 移动设备，通过 PC 走 internet 访问的，这就违反了 baidu 的规则，导致出现 302 页面错误。yosong 相应调整，但是，你用手机热点接入网络会导致 yosong 登录失败。（我如何知晓有此规则？很简单，我把 yosong 伪装成 iphone，然后再把手机热点打开用 4G 数据流量创造 cmnet 的 IP，成功访问 baidu）  
